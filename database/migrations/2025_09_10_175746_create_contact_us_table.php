@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('route_links', function (Blueprint $table) {
+        Schema::create('contact_us', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique();
-            $table->foreignId('parent_id')->nullable()->constrained('route_links')->onDelete('cascade');
-            $table->enum('visibility', ['public', 'auth', 'admin'])->default('public');
-            $table->softDeletes();
+            $table->string('email');
+            $table->string('phone')->nullable();
+            $table->string('subject')->nullable();
+            $table->text('message');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('route_links');
+        Schema::dropIfExists('contact_us');
     }
 };

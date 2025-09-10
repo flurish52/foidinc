@@ -1,37 +1,31 @@
 <template>
-    <TopHeader />
-    <NavBar />
-    <div class="flex justify-center items-start">
-    <SideBar class="mt-16" />
-    <div className="px-4 md:px-6 py-6 space-y-8">
-        <PageContent :article="sampleArticle"/>
+    <div>
+        <TopHeader />
+        <NavBar />
+        <div class="flex flex-col md:flex-row max-w-7xl mx-auto mt-16 px-4 md:px-6">
+            <!-- Sidebar -->
+            <aside class="hidden md:block w-64 flex-shrink-0 sticky top-16 h-[calc(100vh-4rem)] overflow-auto">
+                <SideBar />
+            </aside>
+            <!-- Main content -->
+            <main class="flex-1 md:ml-6">
+            <HeaderSection :title="pageContent.title" />
+                <div v-html="pageContent.content" class="space-y-8"></div>
+            </main>
+
+        </div>
     </div>
-    </div>
+    <Footer />
 </template>
 
 <script setup>
-import PageContent from "@/Components/DynamicPage/PageContent.vue";
 import SideBar from "@/Components/GuestSideBar/SideBar.vue";
 import TopHeader from "@/Components/GuestNavBar/TopHeader.vue";
 import NavBar from "@/Components/GuestNavBar/NavBar.vue";
+import Footer from "@/Components/HomeSections/Footer.vue";
+import HeaderSection from "@/Components/DynamicPage/HeaderSection.vue";
 
-const sampleArticle = {
-    title: "Pope Leo XIV Canonizes Youth Icons",
-    excerpt: "Pope Leo XIV has canonized two young figures, emphasizing the values of faith and youth engagement.",
-    thumbnail: "https://picsum.photos/id/1035/800/400",
-    body: [
-        "On Sunday, Pope Leo XIV celebrated the canonization of two young men whose lives exemplify service and dedication.",
-        "The ceremony took place at St. Peter's Basilica, attended by clergy and pilgrims from around the world.",
-        "Their stories inspire a new generation of Catholics to engage with their communities and live their faith fully."
-    ],
-    images: [
-        "https://picsum.photos/id/1036/800/400",
-        "https://picsum.photos/id/1037/800/400"
-    ],
-    slider: [
-        "https://picsum.photos/id/1038/400/250",
-        "https://picsum.photos/id/1039/400/250",
-        "https://picsum.photos/id/1040/400/250"
-    ]
-};
+defineProps({
+    pageContent: Object
+})
 </script>

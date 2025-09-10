@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Http\Requests\StorePageRequest;
 use App\Http\Requests\UpdatePageRequest;
+use App\Models\Route_link;
 use Inertia\Inertia;
 
 class PageController extends Controller
@@ -12,10 +13,16 @@ class PageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($slug)
     {
-        return inertia::render('DynamicPage', [
+        $link = Route_link::where('slug', '/page/'.$slug)->first();
 
+        $page = $link
+            ? Page::where('link_id', $link->id)->first()
+            : null;
+
+        return Inertia::render('DynamicPage', [
+            'pageContent' => $page ?? (object)[]
         ]);
     }
 

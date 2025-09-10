@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Route_link;
 use App\Http\Requests\StoreRoute_linkRequest;
 use App\Http\Requests\UpdateRoute_linkRequest;
+use Illuminate\Routing\Route;
+use Inertia\Inertia;
 
 class RouteLinkController extends Controller
 {
@@ -13,7 +15,12 @@ class RouteLinkController extends Controller
      */
     public function index()
     {
-        //
+        $links = Route_link::with('children')
+            ->whereNull('parent_id')
+            ->where('visibility', 'public')
+            ->get();
+        return response()->json($links);
+
     }
 
     /**
@@ -22,6 +29,11 @@ class RouteLinkController extends Controller
     public function create()
     {
         //
+    }
+
+    public function contactUs()
+    {
+
     }
 
     /**

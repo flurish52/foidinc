@@ -21,7 +21,8 @@ class Route_link extends Model
 
     public function children()
     {
-        return $this->hasMany(Route_link::class, 'parent_id');
+        // recursively load children
+        return $this->hasMany(Route_link::class, 'parent_id')->with('children');
     }
 }
 

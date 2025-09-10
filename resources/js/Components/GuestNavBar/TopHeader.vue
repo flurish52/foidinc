@@ -1,7 +1,7 @@
 <template>
     <header class="relative md:hidden">
         <!-- Top Sticky Bar -->
-        <div class="sticky top-0 z-50 bg-secondary-dark px-4 py-3 flex justify-between items-center">
+        <div class="sticky top-0 z-50 bg-secondary text-white px-4 py-3 flex justify-between items-center">
             <!-- Hamburger -->
             <button
                 @click="sidebarOpen = true"
@@ -24,25 +24,25 @@
                     href="/"
                     class="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
                 >
-                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-facebook-f">F</i>
                 </Link>
                 <Link
                     href="/"
                     class="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
                 >
-                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-twitter">T</i>
                 </Link>
                 <Link
                     href="/"
                     class="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
                 >
-                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-instagram">I</i>
                 </Link>
                 <Link
                     href="/"
                     class="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
                 >
-                    <i class="fas fa-envelope"></i>
+                    <i class="fas fa-envelope">F</i>
                 </Link>
             </div>
         </div>
@@ -72,18 +72,17 @@
 
                 <!-- Sidebar -->
                 <div class="relative w-64 bg-secondary-dark p-4 flex flex-col space-y-2">
+                    <div class="flex justify-between">
+                        <h1 class="text-tertiary">FOIDINC</h1>
+
                     <button
-                        class="self-end mb-4 text-tertiary hover:text-primary"
+                        class="self-end mb-4 text-tertiary hover:text-white"
                         @click="sidebarOpen = false"
                     >
                         ✕
                     </button>
-                    <Link href="/contact-us" class="block px-4 py-2 hover:bg-primary hover:text-tertiary transition">
-                        Contact Us
-                    </Link>
-                    <Link href="/our-bishop" class="block px-4 py-2 hover:bg-primary hover:text-tertiary transition">
-                        Our Bishop
-                    </Link>
+                    </div>
+                    <MobileSideBar v-for="link in $page.props.links" :key="link.id" :link="link" />
                 </div>
             </div>
         </transition>
@@ -168,12 +167,12 @@
         </div>
     </header>
     </div>
-
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
+import MobileSideBar from "@/Components/GuestSideBar/MobileSideBar.vue";
 
 const sidebarOpen = ref(false);
 </script>

@@ -7,7 +7,7 @@
             :key="index"
         >
             <Link
-                :href="item.href"
+                :href="item.slug"
                 class="block px-4 py-3 text-sm text-secondary-dark hover:bg-blue-50 hover:text-secondary transition-colors"
             >
                 {{ item.name }}
