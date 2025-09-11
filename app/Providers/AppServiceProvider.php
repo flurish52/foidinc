@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Page;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
@@ -30,18 +31,21 @@ class AppServiceProvider extends ServiceProvider
             'links' => function () {
                 return Route_link::with('children')
                     ->whereNull('parent_id')
+                    ->orderBy('position')
                     ->where('visibility', 'public')
                     ->get();
             },
 
             'admin_links' => function () {
-                if (auth()->check() && auth()->user()) {
-                    return Route_link::with('children')
-                        ->whereNull('parent_id')
+                if (Auth::user()) {
+                    return Route_link::with(['children' => function ($q) {
+                        $q->where('visibility', 'admin');
+                    }])
                         ->where('visibility', 'admin')
+                        ->orderBy('position')
                         ->get();
                 }
-                return collect(); // empty if not admin
+                return collect();
             },
 
 

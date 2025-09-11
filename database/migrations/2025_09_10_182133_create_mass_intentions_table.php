@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('zip')->nullable();
             $table->string('phone')->nullable();
             $table->string('email');
-            $table->text('details'); // the actual intention/request
+            $table->text('details');
+            $table->enum('status', ['pending', 'approved', 'rejected', 'fulfilled'])
+                ->default('pending');
             $table->timestamps();
         });
 

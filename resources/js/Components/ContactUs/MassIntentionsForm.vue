@@ -139,6 +139,7 @@ const submitForm = () => {
     axios.post('/mass_intentions', formData)
         .then(res=>{
            message.value = res.data.message
+            error.value = ''
             form.value = {
                 first_name: '',
                 last_name: '',
@@ -153,6 +154,7 @@ const submitForm = () => {
         .catch(err =>{
             if (err)
            error.value =  err.response.data.message
+            message.value = ''
         });
 };
 </script>

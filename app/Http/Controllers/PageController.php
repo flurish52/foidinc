@@ -34,6 +34,13 @@ class PageController extends Controller
         //
     }
 
+    public function adminView()
+    {
+        return inertia::render('PublicPages/Pages', [
+            'pages' => Page::latest()->paginate(),
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -55,7 +62,9 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        //
+       return inertia::render('PublicPages/PageEditor', [
+          'page' =>  $page,
+       ]);
     }
 
     /**

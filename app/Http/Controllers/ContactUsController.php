@@ -14,7 +14,9 @@ class ContactUsController extends Controller
      */
     public function index()
     {
-        //
+        return inertia::render('ContactMessages', [
+            'contactMessages' => ContactUs::latest()->paginate(10)
+        ]);
     }
 
     /**
@@ -77,8 +79,11 @@ class ContactUsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ContactUs $contactUs)
+    public function destroy($id)
     {
-        //
+        $contactMessage = \App\Models\ContactUs::findOrFail($id);
+        $contactMessage->delete(); // soft delete
+
+        return response()->json(['message' => 'Contact message deleted successfully']);
     }
 }

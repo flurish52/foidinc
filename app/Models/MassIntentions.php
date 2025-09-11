@@ -20,5 +20,7 @@ class MassIntentions extends Model
         'phone',
         'email',
         'details',
+        'status',
+        'note',
     ];
 }
