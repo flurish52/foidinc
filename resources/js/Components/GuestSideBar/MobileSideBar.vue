@@ -16,8 +16,8 @@ const isOpen = ref(false)
     <div>
         <!-- Parent Link -->
         <div class="flex items-center justify-between px-4 py-2 hover:bg-tertiary text-tertiary transition">
-            <Link :href="link.slug">
-                {{ link.name }}
+            <Link :href="slug === '/' ? '/' : `/page/${slug}`">
+                {{ link.title }}
             </Link>
 
             <!-- Toggle if children exist -->

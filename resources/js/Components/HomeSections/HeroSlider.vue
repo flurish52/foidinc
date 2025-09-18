@@ -16,12 +16,11 @@
             <div
                 class="absolute inset-0 flex flex-col justify-center items-center text-center px-4"
             >
-                <h2 class="text-3xl md:text-5xl font-heading text-white drop-shadow-lg">
-                    {{ slide.title }}
+                <h2 class="text-3xl md:text-5xl font-heading text-white"
+                    style="text-shadow: 2px 2px 8px rgba(0,0,0,0.9);">
+                    {{ slide?.text }}
                 </h2>
-                <p class="mt-2 text-white text-lg md:text-xl drop-shadow-md">
-                    {{ slide.subtitle }}
-                </p>
+
             </div>
         </div>
 
@@ -43,39 +42,37 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import axios from "axios";
 
-const slides = [
-    {
-        src: 'https://picsum.photos/id/1015/1200/500',
-        title: 'Welcome to Our Diocese',
-        subtitle: 'Join us in faith and community'
-    },
-    {
-        src: 'https://picsum.photos/id/1016/1200/500',
-        title: 'Helping Hands',
-        subtitle: 'Come over to Macedonia and help us (Act 16:9)'
-    },
-    {
-        src: 'https://picsum.photos/id/1018/1200/500',
-        title: 'Community Events',
-        subtitle: 'Engage and grow with our parish programs'
-    },
-    {
-        src: 'https://picsum.photos/id/1020/1200/500',
-        title: 'Your Support Matters',
-        subtitle: 'Donate and make a difference today'
+const slides = ref([]);
+
+const fetchHeroSlides = async () => {
+    try {
+        const res = await axios.get('/hero/slider')
+        if (res.status === 200 && res.data.sliders) {
+            slides.value = res.data.sliders.map(slide => ({
+                text: slide.text || '',
+                src: `/storage/${slide.image}`
+            }))
+        }
+    } catch (err) {
+        console.error(err)
     }
-];
+}
+
+onMounted(()=>{
+    fetchHeroSlides()
+})
 
 const currentIndex = ref(0);
 let interval = null;
 
 const nextSlide = () => {
-    currentIndex.value = (currentIndex.value + 1) % slides.length;
+    currentIndex.value = (currentIndex.value + 1) % slides.value.length;
 };
 
 const prevSlide = () => {
-    currentIndex.value = (currentIndex.value - 1 + slides.length) % slides.length;
+    currentIndex.value = (currentIndex.value - 1 + slides.value.length) % slides.value.length;
 };
 
 // Auto-slide every 5 seconds

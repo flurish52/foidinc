@@ -7,10 +7,10 @@
             :key="index"
         >
             <Link
-                :href="item.slug"
+                :href="`/page/${item.slug}`"
                 class="block px-4 py-3 text-sm text-secondary-dark hover:bg-blue-50 hover:text-secondary transition-colors"
             >
-                {{ item.name }}
+                {{ item.title }}
             </Link>
         </li>
     </ul>

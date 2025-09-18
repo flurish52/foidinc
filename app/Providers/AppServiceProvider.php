@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
-use App\Models\Route_link;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,29 +24,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::prefetch(concurrency: 3);
-
-        // Share links globally with Inertia
         Inertia::share([
             'links' => function () {
-                return Route_link::with('children')
-                    ->whereNull('parent_id')
+                return Page::with('children:id,parent_id,title,slug')
+                ->whereNull('parent_id')
+                    ->where('status', 'published')
                     ->orderBy('position')
-                    ->where('visibility', 'public')
-                    ->get();
+                    ->get(['id', 'title', 'slug', 'position']);
             },
-
-            'admin_links' => function () {
-                if (Auth::user()) {
-                    return Route_link::with(['children' => function ($q) {
-                        $q->where('visibility', 'admin');
-                    }])
-                        ->where('visibility', 'admin')
-                        ->orderBy('position')
-                        ->get();
-                }
-                return collect();
-            },
-
 
         ]);
     }

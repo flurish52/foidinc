@@ -10,7 +10,7 @@
                 <!-- Image: 70% of card -->
                 <div class="h-[70%]">
                     <img
-                        :src="card.image"
+                        :src="`/storage/${card.thumbnail}`"
                         :alt="card.title"
                         class="w-full h-full object-cover"
                     />
@@ -29,31 +29,12 @@
 
 <script setup>
 import {Link} from "@inertiajs/vue3";
-const cards = [
-    {
-        link: "/project/1",
-        title: "Project One",
-        image: "https://picsum.photos/id/1011/400/300"
-    },
-    {
-        link: "/project/2",
-        title: "Project Two",
-        image: "https://picsum.photos/id/1012/400/300"
-    },
-    {
-        link: "/project/3",
-        title: "Project Three",
-        image: "https://picsum.photos/id/1013/400/300"
-    },
-    {
-        link: "/project/4",
-        title: "Project Four",
-        image: "https://picsum.photos/id/1014/400/300"
-    },
-    {
-        link: "/project/5",
-        title: "Project Five",
-        image: "https://picsum.photos/id/1015/400/300"
-    }
-];
+import {onMounted, ref} from "vue";
+import axios from "axios";
+const cards =   ref([])
+
+onMounted(async () => {
+    const res = await axios.get('/projects')
+    cards.value = res.data.cards
+})
 </script>

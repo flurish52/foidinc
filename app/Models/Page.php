@@ -11,15 +11,17 @@ class Page extends Model
     use HasFactory, SoftDeletes;
 
     protected $casts = [
-        'other_images' => 'array',
         'sliders' => 'array',
     ];
-
-    public function link()
+    public function parent()
     {
-        return $this->belongsTo(Route_link::class);
+        return $this->belongsTo(Page::class, 'parent_id');
     }
 
+    public function children()
+    {
+        return $this->hasMany(Page::class, 'parent_id')->with('children');
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

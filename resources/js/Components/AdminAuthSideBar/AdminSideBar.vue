@@ -1,18 +1,9 @@
 <template>
-    <div>
-        <!-- Toggle Button (visible only on small screens) -->
-        <button
-            class="md:hidden absolute p-2 m-2 border rounded bg-gray-200"
-            @click="isOpen = !isOpen"
-        >
-            ☰
-        </button>
-
+    <div class="fixed">
         <!-- Sidebar -->
         <aside
             :class="[
-        'fixed  top-0 left-0 min-h-screen w-64 bg-gray-100 border-r transform transition-transform duration-200 z-50',
-        isOpen ? 'translate-x-0' : '-translate-x-full',
+        'fixed  top-0 left-0 min-h-screen w-64 bg-gray-200 border-r transform transition-transform duration-200 z-50',
         'md:translate-x-0 md:static md:block'
       ]"
         >
@@ -46,10 +37,31 @@ import SidebarSection from './SidebarSection.vue'
 
 const isOpen = ref(false)
 
-defineProps({
-    admin_links: {
-        type: Array,
-        default: () => []
-    }
-})
+const admin_links = [
+    { name: "Dashboard", slug: "/admin/dashboard" },
+    { name: "Staff", slug: "/admin/users" },
+    { name: "Edit home page", slug: "/admin/edit_home" },
+    { name: "Pages", slug: "/admin/pages" },
+    { name: "Mass intentions", slug: "/admin/mass_intentions" },
+    { name: "Contact Messages", slug: "/admin/contact_messages" },
+    // { name: "Setting", slug: "/admin/setting" }
+]
+
 </script>
+
+<style scoped>
+/* global.css */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1f2937; /* gray-800 */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #4b5563; /* gray-600 */
+    border-radius: 10px;
+}
+
+</style>

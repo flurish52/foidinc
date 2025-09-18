@@ -13,14 +13,20 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('link_id')->constrained('route_links')->onDelete('cascade');
+            $table->string('slug')->unique();
+            $table->foreignId('parent_id')->nullable()
+                ->constrained('pages')
+                ->onDelete('cascade');
             $table->string('title');
+            $table->string('position');
             $table->longText('content');
             $table->string('thumbnail')->nullable();
-            $table->json('other_images')->nullable();
             $table->json('sliders')->nullable();
-            $table->enum('status', ['draft', 'published'])->default('draft');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->enum('status', ['draft', 'published'])
+                ->default('draft');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

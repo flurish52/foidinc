@@ -1,7 +1,8 @@
 <template>
     <li class="relative group  hover:bg-tertiary h-14 text-tertiary hover:text-secondary flex items-center  justify-center">
         <Link
-            :href="slug"
+
+            :href="slug === '/' ? '/' : `/page/${slug}`"
             class="flex items-center gap-1 px-4 font-medium transition-colors"
         >
             {{ name }}

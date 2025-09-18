@@ -1,5 +1,5 @@
 <template>
-    <aside class="hidden md:block w-64 sticky top-4 bg-tertiary-light text-secondary shadow-md h-full overflow-auto p-4">
+    <aside class="hidden md:block w-64 sticky top-4  text-secondary shadow-md h-full overflow-auto p-4">
         <ul>
             <SidebarItem
                 v-for="(item, index) in $page.props.links"

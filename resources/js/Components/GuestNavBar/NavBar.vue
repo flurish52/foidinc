@@ -5,7 +5,7 @@
                 <NavLink
                     v-for="(link, index) in $page.props.links"
                     :key="index"
-                    :name="link.name"
+                    :name="link.title"
                     :slug="link.slug"
                     :children="link.children"
                 />

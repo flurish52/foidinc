@@ -11,7 +11,7 @@ class UpdatePageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,23 @@ class UpdatePageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string',
+            'sliders_new.*' => 'nullable|file|image',
+            'sliders_existing' => 'nullable|array',
+            'content' => 'required|string',
+//            'thumbnail' => 'nullable|string',
+//            'thumbnail_file' => 'nullable|file|image',
+        ];
+
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title is required',
+            'content.required' => 'Content cannot be empty',
+            'status.in' => 'Status must be either draft or published',
         ];
     }
+
 }

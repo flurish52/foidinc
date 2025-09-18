@@ -9,7 +9,7 @@
                         <p class="text-secondary-light mt-2">Create and manage your website pages</p>
                     </div>
                     <Link
-                        href="/pages/create"
+                        href="/admin/create_page"
                         class="group flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-xl shadow-sm hover:bg-primary-dark transition-all duration-200 transform hover:-translate-y-0.5"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -133,7 +133,7 @@
 
                             <div class="flex items-center gap-3 ml-4 flex-shrink-0">
                                 <Link
-                                    :href="`/admin/edit_page/${page.id}`"
+                                    :href="`/admin/edit_page/${page.slug}`"
                                     class="p-2 text-secondary hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
                                     title="Edit Page"
                                 >
@@ -142,17 +142,12 @@
                                     </svg>
                                 </Link>
 
-                                <Link
-                                    :href="`/admin/edit_page/${page.id}`"
-                                    target="_blank"
+                                <div
                                     class="p-2 text-secondary hover:text-green-600 hover:bg-green-100 rounded-lg transition-colors"
-                                    title="View Page"
+                                    title="publish"
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                </Link>
+                               <StatusToggle :page="page" />
+                                </div>
 
                                 <button
                                     @click="destroy(page.id)"
@@ -178,7 +173,7 @@
                     <h3 class="text-lg font-medium text-secondary-dark mb-2">No pages created yet</h3>
                     <p class="text-secondary-light mb-6">Get started by creating your first page</p>
                     <Link
-                        href="/pages/create"
+                        href="/admin/create_page"
                         class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -196,6 +191,7 @@
 import { Link, router } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { computed } from 'vue';
+import StatusToggle from "@/Components/Editor/StatusToggle.vue";
 
 const props = defineProps({
     pages: {

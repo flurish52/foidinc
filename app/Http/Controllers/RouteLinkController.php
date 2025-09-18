@@ -15,13 +15,7 @@ class RouteLinkController extends Controller
      */
     public function index()
     {
-        $links = Route_link::with('children')
-            ->orderBy('position', 'ASC')
-            ->latest()
-            ->paginate(20);
-        return inertia::render('Route_Links', [
-           'route_link' => $links,
-        ]);
+
 
     }
 
