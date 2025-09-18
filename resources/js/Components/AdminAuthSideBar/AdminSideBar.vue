@@ -44,6 +44,7 @@ const admin_links = [
     { name: "Pages", slug: "/admin/pages" },
     { name: "Mass intentions", slug: "/admin/mass_intentions" },
     { name: "Contact Messages", slug: "/admin/contact_messages" },
+    { name: "Monthly Letters", slug: "/admin/newsletters" },
     // { name: "Setting", slug: "/admin/setting" }
 ]
 

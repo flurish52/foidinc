@@ -3,13 +3,13 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\MassIntentionsController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SearchController;
 use App\Models\ContactUs;
 use App\Models\MassIntentions;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,6 +25,14 @@ Route::post('/mass_intentions', [MassIntentionsController::class, 'store'])->nam
 Route::get('/readings/daily-readings', [ProjectController::class, 'dailyReadings']);
 Route::get('/news/news-from-vatican', [ProjectController::class, 'newsFromVatican']);
 Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+Route::get('/newsletters', [NewsletterController::class, 'index'])->name('newsletters.index');
+
+
+
+
+
+
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('Dashboard', [
@@ -67,6 +75,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/users', [AdminController::class, 'allUsers']);
     Route::delete('/admin/delete/{id}', [AdminController::class, 'destroy']);
     Route::patch('/admin/update/{user}', [AdminController::class, 'updateUser']);
+
+    Route::get('/admin/newsletters', fn() => inertia('UploadNewLetters'))->name('admin.create_newsletter');
+    Route::post('/admin/newsletters', [NewsletterController::class, 'store'])->name('newsletters.store');
 });
+
 
 require __DIR__ . '/auth.php';

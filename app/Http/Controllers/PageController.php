@@ -17,10 +17,15 @@ class PageController extends Controller
      */
     public function index($slug)
     {
-        $page = Page::where('slug', $slug)->first() ?? null;
+        $page = Page::with([
+            'parent',
+            'children',
+            'project',
+            'newsletters',
+        ])->where('slug', $slug)->first();
 
         return Inertia::render('DynamicPage', [
-            'pageContent' => $page ?? (object)[]
+            'pageContent' => $page ?? (object) []
         ]);
     }
 

@@ -26,4 +26,12 @@ class Page extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function project()
+    {
+        return $this->hasMany(Project::class);
+    }
+    public function newsletters()
+    {
+        return $this->hasMany(Newsletter::class);
+    }
 }

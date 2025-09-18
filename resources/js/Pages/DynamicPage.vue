@@ -7,37 +7,54 @@
             <aside class="hidden md:block w-64 flex-shrink-0 sticky top-16 h-[calc(100vh-4rem)] overflow-auto">
                 <SideBar />
             </aside>
-
             <!-- Main content -->
-            <main v-if="pageContent"  class="flex-1 md:ml-6">
-                <HeaderSection :title="pageContent.title" />
+            <main v-if="pageContent && Object.keys(pageContent).length" class="flex-1 md:ml-6">
+                <!-- Title -->
+                <HeaderSection v-if="pageContent.title" :title="pageContent.title" />
 
-                <!-- Editor content with clickable images -->
+                <!-- Editor content -->
                 <div
-                    v-html="pageContent.content"
-                    class="editor-content space-y-8"
-                    @click="handleImageClick"
-                ></div>
-                <!-- Slider if present -->
-                <div v-if="pageContent.sliders" class="my-2">
-                    <ImageSlider :images="JSON.parse(pageContent.sliders)" />
-                </div>
-            </main>
-            <main v-else  class="flex-1 md:ml-6">
-                <HeaderSection :title="pageContent.title" />
-
-                <!-- Editor content with clickable images -->
-                <div
+                    v-if="pageContent.content"
                     v-html="pageContent.content"
                     class="editor-content space-y-8"
                     @click="handleImageClick"
                 ></div>
 
-                <!-- Slider if present -->
-                <div v-if="pageContent.sliders" class="my-2">
-                    <ImageSlider :images="JSON.parse(pageContent.sliders)" />
+                <!-- Projects -->
+                <div v-if="pageContent.project && pageContent.project.length">
+                    <h3 class="font-semibold mt-4">Projects</h3>
+                    <ul>
+                        <li v-for="project in pageContent.project" :key="project.id">
+                            {{ project.title }}
+                        </li>
+                    </ul>
                 </div>
+
+                <!-- Newsletters -->
+                <div v-if="pageContent.newsletters && pageContent.newsletters.length">
+                     <SectionHeader title="Newsletters" class="mt-6 text-gray-500" />
+                    <ul>
+                        <li v-for="letter in pageContent.newsletters" :key="letter.id">
+                            <a :href="`/storage/${letter.file_path}`" target="_blank" class="text-indigo-600 underline">
+                                {{ letter.title }}
+                            </a>
+                        </li>
+                    </ul>
+
+
+                </div>
+                    <!-- Slider -->
+                    <div v-if="pageContent.sliders" class="my-2">
+                        <ImageSlider :images="JSON.parse(pageContent.sliders)" />
+                    </div>
             </main>
+
+            <!-- Fallback if no page found -->
+            <main v-else class="flex-1 md:ml-6">
+                <HeaderSection title="Page Not Found" />
+                <p class="text-gray-500">The page you are looking for does not exist.</p>
+            </main>
+
         </div>
 
         <Footer />
@@ -84,6 +101,8 @@ defineProps({
 
 // Modal state
 import { ref } from "vue";
+import NewslettersDisplay from "@/Components/NewsLetters/NewslettersDisplay.vue";
+import SectionHeader from "@/Components/HomeSections/SectionHeader.vue";
 
 const modalOpen = ref(false);
 const modalSrc = ref("");
