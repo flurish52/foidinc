@@ -1,16 +1,17 @@
 <template>
     <div>
-        <h3 class="px-4 py-3 text-xs font-semibold   uppercase tracking-wider">
+        <h3 class="px-4 py-3 text-xl font-semibold   uppercase tracking-wider">
             {{ title }}
         </h3>
         <ul class="space-y-1 overflow-hidden">
-            <li v-for="link in links" :key="link.id" class="group">
+            <li v-for="link in links" :key="link.id" class="group"
+                style="font-family: 'Poppins', sans-serif;">
                 <Link
                     :href="`${link.slug}`"
-                    class="flex items-center px-4 py-3 text-secondary transition-all duration-200 rounded-xl hover:bg-primary/10 hover:text-primary-dark hover:translate-x-1 group-hover:border-l-4 group-hover:border-primary"
+                    class="flex fontFamily-sans  items-center px-4 py-3 text-secondary transition-all duration-200 rounded-xl hover:bg-primary/10 hover:text-primary-dark hover:translate-x-1 group-hover:border-l-4 group-hover:border-primary"
                     :class="{ 'bg-primary/5 text-primary-dark border-l-4 border-primary': $page.url === link.slug }"
                 >
-                    <span class="text-sm font-medium">{{ link.name }}</span>
+                    <span  class="text-lg font-medium">{{ link.name }}</span>
                 </Link>
 
                 <!-- children -->

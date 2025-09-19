@@ -182,8 +182,6 @@ const formatDate = (date) => {
 
 // Toggle preview
 const showPreview = ref(false)
-const togglePreview = () => showPreview.value = !showPreview.value
-
 // Watch sliders to update page.sliders
 watch(sliders, (val) => {
     page.value.sliders = JSON.stringify(val || [])
@@ -191,7 +189,6 @@ watch(sliders, (val) => {
 
 // Save functions
 const saveDraft = async () => {
-    page.value.status = 'draft'
     await savePage()
 }
 
@@ -200,7 +197,6 @@ const publish = async () => {
         alert('Title and content are required')
         return
     }
-    console.log(page.value);
     page.value.status = 'published'
     const response = await axios.patch(`/admin/update_status/${page.value.slug}`, {status: page.value.status})
     if (!response?.data) throw new Error('No response data received')
@@ -217,7 +213,7 @@ const savePage = async () => {
         const formData = new FormData()
         formData.append('title', page.value.title || '')
         formData.append('content', page.value.content || '')
-        formData.append('status', page.value.status)
+        formData.append('status', page.value.status || 'draft')
         formData.append('thumbnail', page.value.thumbnail || '')
         formData.append('parent_id', page.value.parent_id || null)
 

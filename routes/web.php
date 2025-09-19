@@ -1,20 +1,25 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CalendarEventController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\MassIntentionsController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PrayerRequestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SearchController;
 use App\Models\ContactUs;
 use App\Models\MassIntentions;
+use App\Models\Page;
+use App\Models\PrayerRequest;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
+
     ]);
 });
 
@@ -27,9 +32,7 @@ Route::get('/news/news-from-vatican', [ProjectController::class, 'newsFromVatica
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 Route::get('/newsletters', [NewsletterController::class, 'index'])->name('newsletters.index');
-
-
-
+Route::post('/prayer_request', [PrayerRequestController::class, 'store'])->name('prayer_requests.store');
 
 
 
@@ -40,6 +43,8 @@ Route::get('/admin/dashboard', function () {
         'contactMessages' => ContactUs::count(),
         'recentContacts' => ContactUs::latest()->paginate(5),
         'recentIntentions' => MassIntentions::latest()->paginate(5),
+        'recentPrayerRequests' => PrayerRequest::latest()->paginate(5),
+        'prayerRequests' => PrayerRequest::count(),
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -53,6 +58,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/update_intention/status', [MassIntentionsController::class, 'update'])->name('intention.update');
     Route::delete('/delete_intention/{id}', [MassIntentionsController::class, 'destroy'])->name('intention.delete');
     Route::delete('/delete_contact_message/{id}', [ContactUsController::class, 'destroy'])->name('contact_message.delete');
+
+    Route::patch('/update_prayer_request/status', [PrayerRequestController::class, 'update'])
+        ->name('prayer_requests.update');
+
 
     Route::get('/admin/mass_intentions', [MassIntentionsController::class, 'index'])->name('contact_message.view');
     Route::get('/admin/contact_messages', [ContactUsController::class, 'index'])->name('contact_message.view');
@@ -69,6 +78,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/projects', [ProjectController::class, 'index']);
     Route::post('/project/store', [ProjectController::class, 'store']);
+    Route::post('/project/{project}', [ProjectController::class, 'update'])->name('projects.update');
     Route::delete('/project/{card}', [ProjectController::class, 'destroy']);
 
 
@@ -79,6 +89,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/newsletters', fn() => inertia('UploadNewLetters'))->name('admin.create_newsletter');
     Route::post('/admin/newsletters', [NewsletterController::class, 'store'])->name('newsletters.store');
 });
+    Route::get('/admin/calendar', [CalendarEventController::class, 'index'])->name('calendar.index');
+    Route::post('/admin/calendar', [CalendarEventController::class, 'store'])->name('calendar.store');
 
 
 require __DIR__ . '/auth.php';

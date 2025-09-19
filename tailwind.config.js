@@ -13,8 +13,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Nunito', 'ui-sans-serif', 'system-ui'],
-                heading: ['Poppins', 'ui-sans-serif', 'system-ui'],
+                sans: ['georgia', 'poppins', 'ui-sans-serif', 'system-ui'],
+                heading: ['georgia', 'poppins', 'ui-sans-serif', 'system-ui'],
             },
             colors: {
                 primary: {

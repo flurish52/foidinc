@@ -15,7 +15,7 @@
                 <!-- Editor content -->
                 <div
                     v-if="pageContent.content"
-                    v-html="pageContent.content"
+                    v-html="parseYouTubeEmbeds(pageContent.content)"
                     class="editor-content space-y-8"
                     @click="handleImageClick"
                 ></div>
@@ -29,7 +29,9 @@
                         </li>
                     </ul>
                 </div>
-
+                <div v-if="pageContent && pageContent.calendar && pageContent.calendar.length">
+                    <Calendar :events="pageContent.calendar" />
+                </div>
                 <!-- Newsletters -->
                 <div v-if="pageContent.newsletters && pageContent.newsletters.length">
                      <SectionHeader title="Newsletters" class="mt-6 text-gray-500" />
@@ -51,8 +53,8 @@
 
             <!-- Fallback if no page found -->
             <main v-else class="flex-1 md:ml-6">
-                <HeaderSection title="Page Not Found" />
-                <p class="text-gray-500">The page you are looking for does not exist.</p>
+                <HeaderSection :title="pageContent.title" />
+                <p class="text-gray-500">Nothing yet.</p>
             </main>
 
         </div>
@@ -95,7 +97,7 @@ import NavBar from "@/Components/GuestNavBar/NavBar.vue";
 import Footer from "@/Components/HomeSections/Footer.vue";
 import HeaderSection from "@/Components/DynamicPage/HeaderSection.vue";
 
-defineProps({
+const props = defineProps({
     pageContent: Object
 });
 
@@ -103,6 +105,7 @@ defineProps({
 import { ref } from "vue";
 import NewslettersDisplay from "@/Components/NewsLetters/NewslettersDisplay.vue";
 import SectionHeader from "@/Components/HomeSections/SectionHeader.vue";
+import Calendar from "@/Components/DynamicPage/Calendar.vue";
 
 const modalOpen = ref(false);
 const modalSrc = ref("");
@@ -128,6 +131,26 @@ const zoomIn = () => {
 const zoomOut = () => {
     zoom.value = Math.max(zoom.value - 0.2, 0.5);
 };
+
+
+const parseYouTubeEmbeds = (content) => {
+    if (!content) return ""
+
+    const regex = /https?:\/\/(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})[^ \n]*/g
+
+    return content.replace(regex, (match, videoId) => {
+        return `<div class="video-wrapper">
+              <iframe width="560" height="315"
+                src="https://www.youtube.com/embed/${videoId}"
+                frameborder="0" allowfullscreen>
+              </iframe>
+            </div>`
+    })
+}
+
+
+
+
 </script>
 <style>
 .editor-content img {

@@ -1,7 +1,7 @@
 <template>
     <li class="mb-1 py-1">
         <div class="flex items-center cursor-pointer hover:text-primary transition-colors">
-            <Link :href="slug === '/' ? '' : `/page/${slug}`" class="flex-1">{{ item.title ==='Home'? '': item.title }}</Link>
+            <Link :href="slug === '/' ? '' : `/page/${item.slug}`" class="flex-1">{{ item.title ==='Home'? '': item.title }}</Link>
         </div>
 
         <!-- Nested children always shown -->

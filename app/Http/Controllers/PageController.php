@@ -22,6 +22,7 @@ class PageController extends Controller
             'children',
             'project',
             'newsletters',
+            'calendar',
         ])->where('slug', $slug)->first();
 
         return Inertia::render('DynamicPage', [

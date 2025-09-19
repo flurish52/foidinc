@@ -36,4 +36,12 @@ class NewsletterController extends Controller
             ->with('success', 'Newsletter uploaded successfully');
     }
 
+
+
+
+
+
+
+
+
 }

@@ -4,7 +4,7 @@
             <Link
                 v-for="(card, index) in cards"
                 :key="index"
-                :href="card.link"
+                :href="`/page/${card.page.slug}`"
                 class="flex flex-col  hover:border-4 hover:border-primary rounded-lg overflow-hidden shadow hover:shadow-lg transition"
             >
                 <!-- Image: 70% of card -->

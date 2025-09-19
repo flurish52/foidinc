@@ -104,6 +104,27 @@ class ProjectController extends Controller
         return response()->json(['message' => 'Cards saved successfully', 'cards' => $cards]);
     }
 
+    public function update(Request $request, Project $project)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'page_id' => 'nullable|exists:pages,id',
+            'thumbnail' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->store('projects', 'public');
+            $data['thumbnail'] = $path;
+        } else {
+            unset($data['thumbnail']);
+        }
+        $project->update($data);
+        return back()->with('success', 'Project updated successfully.');
+    }
+
+
+
+
     // Delete a single card
     public function destroy(Project $card)
     {

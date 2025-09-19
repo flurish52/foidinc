@@ -1,7 +1,8 @@
 <template>
     <div class="flex justify-between">
         <Link
-            href="/"
+            title="facebook"
+            href="https://www.facebook.com/profile.php?id=100086159057336"
             class="my-1 mx-3 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
         >
             <!-- Facebook -->
@@ -12,7 +13,8 @@
         </Link>
 
         <Link
-            href="/"
+            title="X (twitter)"
+            href="https://www.twitter.com/twitter"
             class="my-1 mx-3 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
         >
             <!-- Twitter -->
@@ -30,7 +32,8 @@
         </Link>
 
         <Link
-            href="/"
+            title="instagram"
+            href="https://instagram/"
             class="my-1 mx-3 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
         >
             <!-- Instagram -->
@@ -55,7 +58,8 @@
         </Link>
 
         <Link
-            href="/"
+            title="flock note"
+            href="http://www.flocknote.com/"
             class="my-1 mx-3 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
         >
             <!-- Email -->

@@ -1,0 +1,1 @@
+import{g as o,o as s,b as e,t as n}from"./app-DucrWc5X.js";const a={class:"text-xl md:text-2xl font-heading font-bold"},c={__name:"SectionHeader",props:{title:{type:String,required:!0}},setup(r){return(l,t)=>(s(),o("div",null,[e("h2",a,n(r.title),1),t[0]||(t[0]=e("hr",{class:"border-tertiary"},null,-1))]))}};export{c as _};

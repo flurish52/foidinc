@@ -34,4 +34,8 @@ class Page extends Model
     {
         return $this->hasMany(Newsletter::class);
     }
+    public function calendar()
+    {
+        return $this->hasMany(CalendarEvent::class);
+    }
 }

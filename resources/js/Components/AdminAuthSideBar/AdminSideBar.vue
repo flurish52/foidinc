@@ -3,17 +3,14 @@
         <!-- Sidebar -->
         <aside
             :class="[
-        'fixed  top-0 left-0 min-h-screen w-64 bg-gray-200 border-r transform transition-transform duration-200 z-50',
+        'fixed  top-0  left-0 min-h-screen w-64 bg-gray-200 border-r transform transition-transform duration-200 z-50',
         'md:translate-x-0 md:static md:block'
       ]"
         >
             <div class="overflow-y-scroll">
-                <div class="hidden md:block p-4 text-lg font-semibold border-b">
+                <div class="hidden md:block p-4  font-semibold border-b text-xl">
                     {{ $page.props.auth.user.name }}
                 </div>
-                <!-- Public and Auth Links -->
-<!--                <SidebarSection title="Admin" :links="links"/>-->
-                <!-- Admin Links -->
                 <SidebarSection
                     v-if="admin_links.length"
                     title="Admin"
@@ -45,6 +42,7 @@ const admin_links = [
     { name: "Mass intentions", slug: "/admin/mass_intentions" },
     { name: "Contact Messages", slug: "/admin/contact_messages" },
     { name: "Monthly Letters", slug: "/admin/newsletters" },
+    { name: "Calender/Events", slug: "/admin/calendar" },
     // { name: "Setting", slug: "/admin/setting" }
 ]
 

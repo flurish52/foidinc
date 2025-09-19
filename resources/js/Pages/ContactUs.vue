@@ -26,10 +26,18 @@
                     >
                         Mass Intentions
                     </button>
+                    <button
+                        @click="activeForm = 'prayer request'"
+                        :class="activeForm === 'prayer request' ? 'bg-primary-dark text-white' : 'bg-gray-200 text-gray-700'"
+                        class="px-4 py-2 rounded"
+                    >
+                        Prayer Request
+                    </button>
                 </div>
                 <!-- Forms -->
                 <ContactUsForm v-if="activeForm === 'contact'" />
                 <MassIntentionsForm v-if="activeForm === 'mass'" />
+                <PrayerRequest v-if="activeForm === 'prayer request'" />
 
             </div>
         </div>
@@ -44,6 +52,7 @@ import SideBar from "@/Components/GuestSideBar/SideBar.vue";
 import TopHeader from "@/Components/GuestNavBar/TopHeader.vue";
 import NavBar from "@/Components/GuestNavBar/NavBar.vue";
 import Footer from "@/Components/HomeSections/Footer.vue";
+import PrayerRequest from "@/Components/ContactUs/PrayerRequest.vue";
 
 const activeForm = ref('contact'); // default form
 </script>
