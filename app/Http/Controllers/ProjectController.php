@@ -113,11 +113,17 @@ class ProjectController extends Controller
         ]);
 
         if ($request->hasFile('thumbnail')) {
+            if (!empty($project->thumbnail) && Storage::disk('public')->exists($project->thumbnail)) {
+                Storage::disk('public')->delete($project->thumbnail);
+            }
+
+            // store new thumbnail
             $path = $request->file('thumbnail')->store('projects', 'public');
             $data['thumbnail'] = $path;
         } else {
             unset($data['thumbnail']);
         }
+
         $project->update($data);
         return back()->with('success', 'Project updated successfully.');
     }

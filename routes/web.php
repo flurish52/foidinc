@@ -33,6 +33,10 @@ Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 Route::get('/newsletters', [NewsletterController::class, 'index'])->name('newsletters.index');
 Route::post('/prayer_request', [PrayerRequestController::class, 'store'])->name('prayer_requests.store');
+Route::get('/hero/slider', [PageController::class, 'getHeroSlides'])->name('getHeroSlider');
+Route::get('/projects', [ProjectController::class, 'index']);
+
+
 
 
 
@@ -74,9 +78,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/edit_home', [PageController::class, 'home'])->name('admin_edit_home');
     Route::post('/hero/slider/edit', [PageController::class, 'updateHomeSlider'])->name('updateHomeSlider');
-    Route::get('/hero/slider', [PageController::class, 'getHeroSlides'])->name('getHeroSlider');
 
-    Route::get('/projects', [ProjectController::class, 'index']);
     Route::post('/project/store', [ProjectController::class, 'store']);
     Route::post('/project/{project}', [ProjectController::class, 'update'])->name('projects.update');
     Route::delete('/project/{card}', [ProjectController::class, 'destroy']);

@@ -1,5 +1,5 @@
 <template>
-    <div class="relative w-full max-w-2xl mx-auto overflow-hidden rounded-2xl shadow-lg my-3">
+    <div class="relative md:w-full max-w-2xl mx-auto overflow-hidden rounded-2xl shadow-lg my-3">
         <!-- Images -->
         <div
             class="flex transition-transform duration-700 ease-in-out"

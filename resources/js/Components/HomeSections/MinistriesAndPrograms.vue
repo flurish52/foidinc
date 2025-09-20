@@ -1,14 +1,14 @@
 <template>
-    <section class="py-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <section class="py-10 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <Link
                 v-for="(card, index) in cards"
                 :key="index"
                 :href="`/page/${card.page.slug}`"
-                class="flex flex-col  hover:border-4 hover:border-primary rounded-lg overflow-hidden shadow hover:shadow-lg transition"
+                class="flex flex-col rounded-xl overflow-hidden bg-white shadow-md hover:shadow-xl border transition"
             >
-                <!-- Image: 70% of card -->
-                <div class="h-[70%]">
+                <!-- Image -->
+                <div class="h-48">
                     <img
                         :src="`/storage/${card.thumbnail}`"
                         :alt="card.title"
@@ -17,8 +17,8 @@
                 </div>
 
                 <!-- Title -->
-                <div class="h-[30%] flex items-center justify-center bg-white p-4">
-                    <h3 class="text-lg font-medium text-gray-800 text-center">
+                <div class="flex items-center justify-center p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 text-center">
                         {{ card.title }}
                     </h3>
                 </div>
@@ -26,7 +26,6 @@
         </div>
     </section>
 </template>
-
 <script setup>
 import {Link} from "@inertiajs/vue3";
 import {onMounted, ref} from "vue";

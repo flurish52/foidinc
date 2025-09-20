@@ -8,8 +8,8 @@
                 style="font-family: 'Poppins', sans-serif;">
                 <Link
                     :href="`${link.slug}`"
-                    class="flex fontFamily-sans  items-center px-4 py-3 text-secondary transition-all duration-200 rounded-xl hover:bg-primary/10 hover:text-primary-dark hover:translate-x-1 group-hover:border-l-4 group-hover:border-primary"
-                    :class="{ 'bg-primary/5 text-primary-dark border-l-4 border-primary': $page.url === link.slug }"
+                    class="flex fontFamily-sans  items-center px-4 py-3 text-secondary transition-all duration-200 rounded-xl hover:bg-secondary/10 hover:text-secondary-dark hover:translate-x-1 group-hover:border-l-4 group-hover:border-secondary"
+                    :class="{ 'bg-secondary/5 text-secondary-dark border-l-4 border-secondary': $page.url === link.slug }"
                 >
                     <span  class="text-lg font-medium">{{ link.name }}</span>
                 </Link>
@@ -19,8 +19,8 @@
                     <li v-for="child in link.children" :key="child.id">
                         <Link
                             :href="`${child.slug}`"
-                            class="flex items-center px-4 py-2 text-xs text-secondary-light/80 transition-all duration-200 rounded-lg hover:bg-primary/5 hover:text-primary-dark hover:translate-x-1"
-                            :class="{ 'bg-primary/5 text-primary-dark': $page.url === child.slug }"
+                            class="flex items-center px-4 py-2 text-xs text-secondary-light/80 transition-all duration-200 rounded-lg hover:bg-secondary/5 hover:text-secondary-dark hover:translate-x-1"
+                            :class="{ 'bg-secondary/5 text-secondary-dark': $page.url === child.slug }"
                         >
                             <span class="font-normal">{{ child.name }}</span>
                         </Link>

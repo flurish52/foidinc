@@ -1,18 +1,17 @@
 <template>
-    <li class="mb-1 py-1">
+        <hr>
+    <li class="mb-1 py-1 px-3">
         <div class="flex items-center cursor-pointer hover:text-primary transition-colors">
             <Link :href="slug === '/' ? '' : `/page/${item.slug}`" class="flex-1">{{ item.title ==='Home'? '': item.title }}</Link>
         </div>
 
         <!-- Nested children always shown -->
-        <ul v-show="true" class="ml-2 mt-1 space-y-1">
-        <hr>
+        <ul v-show="true" class="mt-1 space-y-1">
             <SidebarItem
                 v-for="(child, index) in item.children"
                 :key="index"
                 :item="child"
             />
-        <hr />
         </ul>
     </li>
 

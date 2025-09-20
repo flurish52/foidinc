@@ -21,12 +21,12 @@
                 <!-- Main Content -->
                 <div class="space-y-2">
                     <div v-if="card.type === 'donation'" class="space-y-1">
-                        <p class="text-3xl font-bold text-primary">{{ card.count }}</p>
+                        <p class="text-3xl font-bold text-secondary">{{ card.count }}</p>
                         <p class="text-2xl font-semibold text-green-600">${{ card.amount?.toLocaleString() }}</p>
                         <p class="text-sm text-secondary-light">Total received</p>
                     </div>
                     <div v-else>
-                        <p class="text-3xl font-bold text-primary">{{ card.count }}</p>
+                        <p class="text-3xl font-bold text-secondary">{{ card.count }}</p>
                         <p class="text-sm text-secondary-light">Total {{ card.title.toLowerCase() }}</p>
                     </div>
                 </div>
@@ -98,9 +98,9 @@ const cardsData = ref([
         count: props.massIntentions,
         type: 'count',
         icon: MassIcon,
-        bgColor: 'bg-primary',
+        bgColor: 'bg-secondary',
         percentage: 12,
-        progressColor: 'bg-primary'
+        progressColor: 'bg-secondary'
     },
     {
         title: 'Contact Messages',
@@ -115,9 +115,9 @@ const cardsData = ref([
         title: 'Prayer requests',
         count: props.prayerRequests,
         type: 'prayer requests',
-        bgColor: 'bg-green-500',
+        bgColor: 'bg-secondary',
         percentage: 100,
-        progressColor: 'bg-green-500'
+        progressColor: 'bg-secondary'
     }
 ])
 const activeTab = ref('contacts')

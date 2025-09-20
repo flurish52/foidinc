@@ -6,17 +6,19 @@
     <NavBar class="hidden md:block"/>
     <HeroSlider/>
 
-    <section class="px-4 md:px-12  ">
-        <SectionHeader class="mx-12 mt-6 text-center" title="Ministries and Programs" />
-        <MinistriesAndPrograms />
+    <section class="px-smpad md:px-lgpad">
+        <SectionHeader class="mx-12 mt-6 text-center" title="Ministries and Programs"/>
+        <MinistriesAndPrograms/>
 
-        <TodaysReading />
+        <TodaysReading/>
 
-        <RecentNews />
+        <div class="mb-6">
+            <RecentNews/>
+        </div>
 
     </section>
     <footer>
-        <Footer />
+        <Footer/>
     </footer>
 </template>
 <script setup>

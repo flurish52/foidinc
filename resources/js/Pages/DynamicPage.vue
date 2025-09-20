@@ -1,26 +1,20 @@
 <template>
-    <div>
-        <TopHeader />
-        <NavBar />
-        <div class="flex flex-col md:flex-row max-w-7xl mx-auto mt-16 px-4 md:px-6">
+    <GuestLayout>
+        <div class="flex min-h-screen w-full ">
             <!-- Sidebar -->
             <aside class="hidden md:block w-64 flex-shrink-0 sticky top-16 h-[calc(100vh-4rem)] overflow-auto">
-                <SideBar />
+                <SideBar/>
             </aside>
             <!-- Main content -->
-            <main v-if="pageContent && Object.keys(pageContent).length" class="flex-1 md:ml-6">
-                <!-- Title -->
-                <HeaderSection v-if="pageContent.title" :title="pageContent.title" />
-
-                <!-- Editor content -->
+            <main v-if="pageContent && Object.keys(pageContent).length" class="flex-1 md:pl-12">
+                <HeaderSection v-if="pageContent.title" :title="pageContent.title"/>
                 <div
                     v-if="pageContent.content"
                     v-html="parseYouTubeEmbeds(pageContent.content)"
-                    class="editor-content space-y-8"
+                    class="editor-content break-words prose md:max-w-full md:w-full [&>img]:max-w-full [&>img]:h-auto [&>iframe]:w-full [&>iframe]:aspect-video"
                     @click="handleImageClick"
                 ></div>
 
-                <!-- Projects -->
                 <div v-if="pageContent.project && pageContent.project.length">
                     <h3 class="font-semibold mt-4">Projects</h3>
                     <ul>
@@ -29,12 +23,13 @@
                         </li>
                     </ul>
                 </div>
+
                 <div v-if="pageContent && pageContent.calendar && pageContent.calendar.length">
-                    <Calendar :events="pageContent.calendar" />
+                    <Calendar :events="pageContent.calendar"/>
                 </div>
-                <!-- Newsletters -->
+
                 <div v-if="pageContent.newsletters && pageContent.newsletters.length">
-                     <SectionHeader title="Newsletters" class="mt-6 text-gray-500" />
+                    <SectionHeader title="Newsletters" class="mt-6 text-gray-500"/>
                     <ul>
                         <li v-for="letter in pageContent.newsletters" :key="letter.id">
                             <a :href="`/storage/${letter.file_path}`" target="_blank" class="text-indigo-600 underline">
@@ -42,51 +37,21 @@
                             </a>
                         </li>
                     </ul>
-
-
                 </div>
-                    <!-- Slider -->
-                    <div v-if="pageContent.sliders" class="my-2">
-                        <ImageSlider :images="JSON.parse(pageContent.sliders)" />
-                    </div>
+
+                <div v-if="pageContent.sliders" class="my-2">
+                    <ImageSlider :images="JSON.parse(pageContent.sliders)"/>
+                </div>
             </main>
 
-            <!-- Fallback if no page found -->
-            <main v-else class="flex-1 md:ml-6">
-                <HeaderSection :title="pageContent.title" />
+            <!-- Fallback -->
+            <main v-else class="flex-1 ">
+                <HeaderSection :title="pageContent.title"/>
                 <p class="text-gray-500">Nothing yet.</p>
             </main>
-
         </div>
 
-        <Footer />
-
-        <!-- Modal for clicked images -->
-        <div
-            v-if="modalOpen"
-            @click.self="closeModal"
-            class="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
-        >
-            <button
-                @click="closeModal"
-                class="absolute top-2 right-2 text-white px-3 py-1 rounded hover:bg-gray-200"
-            >
-                X
-            </button>
-            <div class="relative">
-                <img
-                    :src="modalSrc"
-                    :style="{ transform: `scale(${zoom})` }"
-                    class="max-h-[90vh] max-w-[90vw] object-contain transition-transform duration-200"
-                />
-
-                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-2">
-                    <button @click="zoomIn" class="bg-white text-black px-3 py-1 rounded hover:bg-gray-200">+</button>
-                    <button @click="zoomOut" class="bg-white text-black px-3 py-1 rounded hover:bg-gray-200">-</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </GuestLayout>
 </template>
 
 <script setup>
@@ -102,10 +67,11 @@ const props = defineProps({
 });
 
 // Modal state
-import { ref } from "vue";
+import {ref} from "vue";
 import NewslettersDisplay from "@/Components/NewsLetters/NewslettersDisplay.vue";
 import SectionHeader from "@/Components/HomeSections/SectionHeader.vue";
 import Calendar from "@/Components/DynamicPage/Calendar.vue";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 
 const modalOpen = ref(false);
 const modalSrc = ref("");
@@ -150,19 +116,34 @@ const parseYouTubeEmbeds = (content) => {
 
 
 
-
 </script>
 <style>
 .editor-content img {
     cursor: pointer;
 }
+
 .editor-content a {
     color: blue;
     text-decoration-color: blue;
 }
+
 .editor-content a:visited {
     color: purple;
     text-decoration-color: purple;
 }
+
+.editor-content .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+}
+.editor-content img,
+.editor-content iframe,
+.editor-content video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 
 </style>

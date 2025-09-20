@@ -13,25 +13,30 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['georgia', 'poppins', 'ui-sans-serif', 'system-ui'],
+                sans: ['poppins', 'ui-sans-serif', 'system-ui'],
                 heading: ['georgia', 'poppins', 'ui-sans-serif', 'system-ui'],
             },
             colors: {
                 primary: {
-                    light: '#60A5FA',
-                    DEFAULT: '#2563EB',
-                    dark: '#1E40AF',
+                    light: '#f5af00',
+                    DEFAULT: '#f5af00',
+                    dark: '#f5af00',
                 },
                 secondary: {
-                    light: '#9CA3AF',
-                    DEFAULT: '#374151',
-                    dark: '#111827',
+                    light: '#104791',
+                    DEFAULT: '#104791',
+                    dark: '#104791',
                 },
                 tertiary: {
-                    light: '#F9FAFB',
+                    light: '#E5E7EB',
                     DEFAULT: '#F3F4F6',
-                    dark: '#E5E7EB',
+                    dark: '#374151',
                 },
+            },
+            spacing: {
+                smpad: '3rem',   // 48px
+                mdpad: '6rem',   // 96px
+                lgpad: '11rem',  // 176px
             },
         },
     },

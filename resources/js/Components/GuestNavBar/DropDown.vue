@@ -1,6 +1,6 @@
 <template>
     <ul
-        class="absolute left-0 top-12 hidden group-hover:block bg-white border border-gray-100 rounded-xl shadow-md min-w-[220px] mt-2 overflow-hidden"
+        class="absolute left-0 top-12 hidden group-hover:block bg-white border border-gray-100  shadow-md min-w-[220px] mt-2 overflow-hidden"
     >
         <li
             v-for="(item, index) in items"

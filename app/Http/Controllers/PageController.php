@@ -6,6 +6,7 @@ use App\Models\Page;
 use App\Http\Requests\StorePageRequest;
 use App\Http\Requests\UpdatePageRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -61,31 +62,43 @@ class PageController extends Controller
     public function updateHomeSlider(Request $request)
     {
         $page = Page::where('slug', '/')->firstOrFail();
+        $oldSlides = json_decode($page->sliders, true) ?? [];
+
         $slides = [];
         foreach ($request->input('sliders', []) as $index => $slideData) {
             $image = null;
+
             if ($request->hasFile("sliders.$index.image")) {
+                // delete old image if it exists
+                if (!empty($oldSlides[$index]['image']) && \Storage::disk('public')->exists($oldSlides[$index]['image'])) {
+                    \Storage::disk('public')->delete($oldSlides[$index]['image']);
+                }
+
+                // save new file
                 $file = $request->file("sliders.$index.image");
-                $image = $file->store('hero_sliders', 'public'); // store in public storage
+                $image = $file->store('hero_sliders', 'public');
+
             } elseif (!empty($slideData['image'])) {
+                // keep old image if no new file is uploaded
                 $image = $slideData['image'];
             }
 
             $slides[] = [
                 'image' => $image,
-                'text' => $slideData['text'] ?? null
+                'text' => $slideData['text'] ?? null,
             ];
         }
 
-        // Save JSON in the page
+        // save JSON
         $page->sliders = json_encode($slides);
         $page->save();
 
         return response()->json([
             'message' => 'Home slider updated successfully',
-            'slides' => $slides
+            'slides' => $slides,
         ]);
     }
+
 
 
     public function adminView()
@@ -152,33 +165,60 @@ class PageController extends Controller
 
     public function update(UpdatePageRequest $request, Page $page)
     {
+        // Handle thumbnail
+        if ($request->hasFile('thumbnail')) {
+            // delete old thumbnail if exists
+            if ($page->thumbnail && \Storage::disk('public')->exists($page->thumbnail)) {
+                \Storage::disk('public')->delete($page->thumbnail);
+            }
+            $page->thumbnail = $request->file('thumbnail')->store('thumbnails', 'public');
+        } elseif ($request->remove_thumbnail) {
+            // delete thumbnail if user removed it
+            if ($page->thumbnail && \Storage::disk('public')->exists($page->thumbnail)) {
+                \Storage::disk('public')->delete($page->thumbnail);
+            }
+            $page->thumbnail = null;
+        }
 
         $page->title = $request->title;
-        $page->content = $request['content'];
-        $page->thumbnail = $request->thumbnail;
+        $page->content = $request->input('content');
         $page->status = $request->status ?? 'draft';
 
-        $storedSliders = [];
+        // Handle sliders
+        $oldSliders = json_decode($page->sliders, true) ?? [];
+        $newSliders = [];
+
+        // Keep existing sliders from request
         $existingSliders = $request->input('sliders_existing', []);
         foreach ($existingSliders as $slider) {
-            $storedSliders[] = $slider;
+            $newSliders[] = $slider;
         }
-        $newSliders = $request->file('sliders_new', []);
-        foreach ($newSliders as $file) {
-            if ($file && $file->isValid()) {
-                $storedSliders[] = $file->store('sliders', 'public');
+
+        // Add new uploaded sliders
+        if ($request->hasFile('sliders_new')) {
+            foreach ($request->file('sliders_new') as $file) {
+                if ($file && $file->isValid()) {
+                    $newSliders[] = $file->store('sliders', 'public');
+                }
             }
         }
 
-        $page->sliders = json_encode($storedSliders);
+        // Delete removed sliders from storage
+        foreach ($oldSliders as $old) {
+            if (!in_array($old, $newSliders) && Storage::disk('public')->exists($old)) {
+                Storage::disk('public')->delete($old);
+            }
+        }
+
+        $page->sliders = json_encode($newSliders);
         $page->save();
-        $data = $page;
 
         return response()->json([
             'message' => 'Page updated successfully',
-            'data' => $data
+            'data' => $page
         ]);
     }
+
 
 
     /**

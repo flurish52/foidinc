@@ -1,16 +1,24 @@
 <template>
-    <header class="relative md:hidden">
+    <header class=" md:hidden ">
         <!-- Top Sticky Bar -->
         <div class="sticky top-0 z-50 bg-secondary text-white px-4 py-3 flex justify-between items-center">
             <!-- Hamburger -->
             <button
                 @click="sidebarOpen = true"
-                class="md:hidden flex items-center justify-center w-8 h-8 border border-tertiary rounded hover:bg-primary hover:text-tertiary transition"
+                class="md:hidden flex items-center justify-center w-10 h-10 border border-tertiary rounded hover:bg-primary hover:text-tertiary transition"
             >
-                <span class="block w-5 h-0.5 bg-tertiary mb-1"></span>
-                <span class="block w-5 h-0.5 bg-tertiary mb-1"></span>
-                <span class="block w-5 h-0.5 bg-tertiary"></span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    class="w-6 h-6 text-tertiary"
+                >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
             </button>
+
 
             <!-- Desktop Contact Links -->
             <div class="hidden md:flex space-x-4">
@@ -20,41 +28,18 @@
 
             <!-- Social Icons -->
             <div class="flex items-center space-x-2">
-                <Link
-                    href="/"
-                    class="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
-                >
-                    <i class="fab fa-facebook-f">F</i>
-                </Link>
-                <Link
-                    href="/"
-                    class="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
-                >
-                    <i class="fab fa-twitter">T</i>
-                </Link>
-                <Link
-                    href="/"
-                    class="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
-                >
-                    <i class="fab fa-instagram">I</i>
-                </Link>
-                <Link
-                    href="/"
-                    class="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-tertiary text-secondary rounded hover:bg-primary hover:text-tertiary transition"
-                >
-                    <i class="fas fa-envelope">F</i>
-                </Link>
+                <SocialIcons />
             </div>
         </div>
         <!-- Heading + Tagline -->
-        <div class="text-center px-4 py-4 bg-tertiary">
+        <div class="text-center px-4 py-4 bg-secondary">
             <Link href="/" class="block">
-                <h1 class="text-xl md:text-3xl font-heading font-bold hover:text-primary transition-colors">
+                <h1 class="text-xl md:text-3xl font-heading text-tertiary font-bold hover:text-tertiary-dark transition-colors">
                     FRIENDS OF IJEBU-ODE DIOCESE INC
                     <!--                    Friends of Ijebu-Ode Diocese Inc-->
                 </h1>
             </Link>
-            <p class="text-sm md:text-base mt-1">
+            <p class="text-sm text-tertiary md:text-base mt-1">
                 Come over to Macedonia and help us (Act 16:9).
             </p>
         </div>
@@ -88,10 +73,9 @@
             </div>
         </transition>
     </header>
-
     <!-- Desktop section-->
-    <div class="hidden md:block">
-        <header class="bg-secondary-dark text-tertiary px-4 py-3">
+    <div class="hidden md:block px-lgpad bg-secondary">
+        <header class=" text-tertiary py-3">
             <div class="max-w-7xl mx-auto flex justify-between items-center">
 
                 <!-- Left: Hamburger Menu on Mobile / Contact Links on Desktop -->
@@ -99,7 +83,7 @@
                     <!-- Mobile Hamburger -->
                     <button
                         @click="sidebarOpen = !sidebarOpen"
-                        class="md:hidden flex items-center justify-center w-8 h-8 border border-tertiary rounded hover:bg-primary hover:text-tertiary transition"
+                        class="md:hidden flex items-center justify-center w-8 h-8 border border-tertiary rounded hover:bg-tertiary hover:text-tertiary transition"
                     >
                         <span class="block w-5 h-0.5 bg-tertiary mb-1"></span>
                         <span class="block w-5 h-0.5 bg-tertiary mb-1"></span>
@@ -108,15 +92,15 @@
 
                     <!-- Desktop Links -->
                     <div class="hidden md:flex space-x-4">
-                        <Link href="/contact-us" class="hover:text-primary transition-colors">Contact Us</Link>
-                        <Link href="/page/our-bishop" class="hover:text-primary transition-colors">Our Bishop</Link>
+                        <Link href="/contact-us" class="hover:text-tertiary transition-colors">Contact Us</Link>
+                        <Link href="/page/our-bishop" class="hover:text-tertiary transition-colors">Our Bishop</Link>
                     </div>
                 </div>
 
                 <!-- Center: Heading + Tagline -->
                 <div class="flex-1 text-center mt-2 md:mt-0">
                     <Link href="/" class="block">
-                        <h1 class="text-xl md:text-3xl font-heading font-bold hover:text-primary transition-colors">
+                        <h1 class="text-xl  font-heading font-bold hover:text-tertiary transition-colors">
                             FRIENDS OF IJEBU-ODE DIOCESE INC
                         </h1>
                     </Link>

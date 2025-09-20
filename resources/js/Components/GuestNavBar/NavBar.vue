@@ -1,7 +1,10 @@
 <template>
-    <nav class="sticky hidden md:block top-0 bg-primary-dark shadow-md z-50 bg-primary-dark">
-        <div class="max-w-7xl flex items-center justify-center mx-auto px-6 h-fit">
-            <ul class="flex items-center justify-center space-x-8">
+    <nav
+        style="font-family: sans-serif"
+        class="sticky hidden md:block text-tertiary-dark top-0 shadow-md z-50 bg-primary px-lgpad"
+    >
+        <div class="flex items-center h-14">
+            <ul class="flex w-full items-center justify-between">
                 <NavLink
                     v-for="(link, index) in $page.props.links"
                     :key="index"

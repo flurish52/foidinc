@@ -1,6 +1,6 @@
 <template>
-    <div class="p-6 bg-gray-50">
-        <h1 class="text-3xl font-bold text-center m">Today's Readings</h1>
+    <div class="py-6 bg-gray-50">
+        <h1 class="text-3xl font-bold text-center my-6">Today's Readings</h1>
 
         <div class="grid gap-6 md:grid-cols-2">
             <div v-for="(item, index) in readings" :key="index" class="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">

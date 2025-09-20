@@ -54,15 +54,21 @@ import {router, useForm} from "@inertiajs/vue3";
 
 const cards = ref([])
 const newCard = ref({title: '', page_id: '', file: null, preview: ''})
-
 onMounted(async () => {
     const res = await axios.get('/projects')
     cards.value = res.data.cards
 })
-
 const onFileChange = (event) => {
     const file = event.target.files[0]
     if (!file) return
+
+    // Check if file size is more than 2MB
+    if (file.size > 2 * 1024 * 1024) {
+        alert('File must be less than 2MB')
+        event.target.value = '' // reset input
+        return
+    }
+
     newCard.value.file = file
     newCard.value.preview = URL.createObjectURL(file)
 }
@@ -84,10 +90,7 @@ const addCard = async () => {
     cards.value = res.data.cards
     newCard.value = {title: '', page_id: '', file: null, preview: ''}
 }
-
-
 const editingCard = ref(null)
-
 const editCard = (card) => {
     editingCard.value = card.id
     newCard.value.id = card.id
@@ -112,9 +115,18 @@ const updateCard = () => {
             editingCard.value = null
             newCard.value = {id: null, title: '', page_id: '', thumbnail: null, preview: null}
             router.visit(window.location.href, {preserveScroll: true})
+        },
+        onError: (errors) => {
+            for (const key in errors) {
+                alert(errors[key])
+            }
+        },
+        onFinish: () => {
+            // Runs on both success or error
         }
     })
 }
+
 
 
 const deleteCard = async (id) => {
