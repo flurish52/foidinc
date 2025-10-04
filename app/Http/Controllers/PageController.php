@@ -70,14 +70,13 @@ class PageController extends Controller
 
             if ($request->hasFile("sliders.$index.image")) {
                 // delete old image if it exists
-                if (!empty($oldSlides[$index]['image']) && \Storage::disk('public')->exists($oldSlides[$index]['image'])) {
-                    \Storage::disk('public')->delete($oldSlides[$index]['image']);
+                if (!empty($oldSlides[$index]['image']) && Storage::disk('public')
+                        ->exists($oldSlides[$index]['image'])) {
+                    Storage::disk('public')->delete($oldSlides[$index]['image']);
                 }
-
                 // save new file
                 $file = $request->file("sliders.$index.image");
                 $image = $file->store('hero_sliders', 'public');
-
             } elseif (!empty($slideData['image'])) {
                 // keep old image if no new file is uploaded
                 $image = $slideData['image'];

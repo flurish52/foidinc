@@ -12,7 +12,6 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SearchController;
 use App\Models\ContactUs;
 use App\Models\MassIntentions;
-use App\Models\Page;
 use App\Models\PrayerRequest;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
