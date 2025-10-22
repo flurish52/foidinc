@@ -30,7 +30,7 @@
 
 <script setup>
 import {ref} from 'vue'
-import SidebarSection from './SidebarSection.vue'
+import SidebarSection from './SideBarSection.vue'
 
 const isOpen = ref(false)
 
