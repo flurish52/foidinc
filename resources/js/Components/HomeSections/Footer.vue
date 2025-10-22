@@ -28,7 +28,7 @@
             <p class="text-sm">
                 <Link href="/login" class="underline hover:text-primary transition-colors"> Login </Link>
                 powered by
-                <Link href="https://ecatholic.com" class="underline hover:text-primary transition-colors"> eCatholic® </Link>
+                <Link href="https://stechmax.com" class="underline hover:text-primary transition-colors"> S-TechMax Ltd </Link>
             </p>
         </footer>
 </template>
