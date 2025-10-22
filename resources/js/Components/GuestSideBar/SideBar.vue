@@ -10,5 +10,5 @@
     </aside>
 </template>
 <script setup>
-import SidebarItem from "./SidebarItem.vue";
+import SidebarItem from "./SideBarItem.vue";
 </script>
