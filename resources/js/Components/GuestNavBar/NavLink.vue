@@ -1,5 +1,5 @@
 <script setup>
-import Dropdown from "./Dropdown.vue"
+import Dropdown from "./DropDown.vue"
 import { Link } from "@inertiajs/vue3"
 
 defineProps({
