@@ -26,8 +26,9 @@ class UpdatePageRequest extends FormRequest
             'sliders_new.*' => 'nullable|file|image',
             'sliders_existing' => 'nullable|array',
             'content' => 'required|string',
-//            'thumbnail' => 'nullable|string',
-//            'thumbnail_file' => 'nullable|file|image',
+            'parent_id' => 'nullable|numeric|exists:pages,id',
+            'main' => 'nullable|boolean',
+            'position' => 'nullable|numeric',
         ];
 
     }

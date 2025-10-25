@@ -8,10 +8,11 @@
             <!-- Main content -->
             <main v-if="pageContent && Object.keys(pageContent).length" class="flex-1 md:pl-12">
                 <HeaderSection v-if="pageContent.title" :title="pageContent.title"/>
+                {{ pageContent.status }}
                 <div
                     v-if="pageContent.content"
                     v-html="parseYouTubeEmbeds(pageContent.content)"
-                    class="editor-content break-words prose md:max-w-full md:w-full [&>img]:max-w-full [&>img]:h-auto [&>iframe]:w-full [&>iframe]:aspect-video"
+                    class="editor-content text-gray-600 break-words prose md:max-w-full md:w-full [&>img]:max-w-full [&>img]:h-auto [&>iframe]:w-full [&>iframe]:aspect-video"
                     @click="handleImageClick"
                 ></div>
 
@@ -137,6 +138,7 @@ const parseYouTubeEmbeds = (content) => {
     padding-bottom: 56.25%; /* 16:9 */
     height: 0;
 }
+
 .editor-content img,
 .editor-content iframe,
 .editor-content video {
@@ -145,5 +147,33 @@ const parseYouTubeEmbeds = (content) => {
     display: block;
 }
 
+/* Headers inside editor content */
+.editor-content h1,
+.editor-content h2,
+.editor-content h3,
+.editor-content h4,
+.editor-content h5,
+.editor-content h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+    line-height: 1.25;
+}
 
+.editor-content h1 { font-size: 2rem; }
+.editor-content h2 { font-size: 1.75rem; }
+.editor-content h3 { font-size: 1.5rem; }
+.editor-content h4 { font-size: 1.25rem; }
+.editor-content h5 { font-size: 1rem; }
+.editor-content h6 { font-size: 0.875rem; }
+
+/* Force word wrapping */
+.editor-content {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
 </style>
+
+

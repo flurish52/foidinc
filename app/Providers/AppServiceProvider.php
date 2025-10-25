@@ -26,11 +26,13 @@ class AppServiceProvider extends ServiceProvider
         Vite::prefetch(concurrency: 3);
         Inertia::share([
             'links' => function () {
-                return Page::with('children:id,parent_id,title,slug')
-                ->whereNull('parent_id')
+                return Page::with(['children' => function ($query) {
+                    $query->where('status', 'published')
+                        ->select('id', 'parent_id', 'title', 'slug');
+                }])
                     ->where('status', 'published')
                     ->orderBy('position')
-                    ->get(['id', 'title', 'slug', 'position']);
+                    ->get(['id', 'title', 'slug', 'position', 'parent_id', 'main']);
             },
 
         ]);

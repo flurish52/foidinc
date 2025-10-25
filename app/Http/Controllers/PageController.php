@@ -18,6 +18,15 @@ class PageController extends Controller
      */
     public function index($slug)
     {
+        if ($slug === 'contact-us') {
+            return Inertia::render('ContactUs', [
+
+            ]);
+        }
+        if ($slug === 'home') {
+            return redirect('/');
+        }
+
         $page = Page::with([
             'parent',
             'children',
@@ -30,6 +39,7 @@ class PageController extends Controller
             'pageContent' => $page ?? (object) []
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -103,7 +113,7 @@ class PageController extends Controller
     public function adminView()
     {
         return inertia::render('PublicPages/Pages', [
-            'pages' => Page::latest()->paginate(),
+            'pages' => Page::latest()->paginate(10),
         ]);
     }
 
@@ -112,7 +122,7 @@ class PageController extends Controller
      */
     public function store(StorePageRequest $request)
     {
-        $page = new Page();
+       $page = new Page();
         $page->slug = Str::slug($request->title);
         $page->title = $request->title;
         $page->parent_id = $request->parent_id === 'null' ? null : $request->parent_id;
@@ -121,6 +131,8 @@ class PageController extends Controller
         $page->thumbnail = $request->thumbnail;
         $page->status = $request->status;
         $page->user_id = auth()->id();
+        $page->main = $request->main?? 0;
+        $page->position = $request->position?? 0;
 
         $storedSliders = [];
         $newSliders = $request->file('sliders_new', []);
@@ -178,10 +190,13 @@ class PageController extends Controller
             }
             $page->thumbnail = null;
         }
-
+        $page->slug = Str::slug($request->title);
         $page->title = $request->title;
         $page->content = $request->input('content');
         $page->status = $request->status ?? 'draft';
+        $page->parent_id = $request->parent_id ?? null;
+        $page->main = $request->main ?? 0;
+        $page->position = $request->position ?? 0;
 
         // Handle sliders
         $oldSliders = json_decode($page->sliders, true) ?? [];
@@ -234,8 +249,13 @@ class PageController extends Controller
         $page->save();
         return response()->json(['message'=> 'page updated successfully']);
     }
+
+
+
     public function destroy(Page $page)
     {
-        //
+        $page->delete();
+        return response()->json(['message' => 'Page deleted successfully']);
     }
+
 }

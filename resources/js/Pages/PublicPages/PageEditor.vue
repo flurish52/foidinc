@@ -85,6 +85,29 @@
                             </select>
                         </div>
 
+                        <!-- Main nav select -->
+                        <div class="mt-4">
+                            <label for="parent" class="block text-sm font-medium text-gray-700">Main nav?</label>
+                            <select
+                                id="parent"
+                                v-model="page.main"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            >
+                                <option value="0"  selected>No</option>
+                                <option value="1" > Yes </option>
+                            </select>
+                        </div>
+                        <!-- page position -->
+                        <div class="mt-4">
+                            <label for="parent" class="block text-sm font-medium text-gray-700 mb-1">Position</label>
+                            <input
+                                type="number"
+                                v-model="page.position"
+                                id="parent"
+                                class="w-full rounded-lg border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 p-2 text-sm text-gray-800"
+                                placeholder="Enter a number"
+                            >
+                        </div>
                     </div>
                     <!-- Rich Text Editor -->
                     <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -123,13 +146,15 @@ const isEditing = ref(!!props.page)
 // Initialize page dynamically
 const page = ref({
     id: props.page?.id || null,
-    parent_id: props.page?.parent_id || null,
+    parent_id: props.page?.parent_id || '',
     title: props.page?.title || '',
     slug: props.page?.slug || '',
     thumbnail: props.page?.thumbnail || null,
     sliders: props.page?.sliders || '[]',
     status: props.page?.status || 'draft',
-    content: props.page?.content || ''
+    content: props.page?.content || '',
+    main: props.page?.main || 0,
+    position: props.page?.position || 0,
 })
 
 // Initialize sliders safely
@@ -215,7 +240,9 @@ const savePage = async () => {
         formData.append('content', page.value.content || '')
         formData.append('status', page.value.status || 'draft')
         formData.append('thumbnail', page.value.thumbnail || '')
-        formData.append('parent_id', page.value.parent_id || null)
+        formData.append('parent_id', page.value.parent_id || '')
+        formData.append('main', page.value.main || 0)
+        formData.append('position', page.value.position || 0)
 
         if (Array.isArray(sliders.value)) {
             sliders.value.forEach((item) => {

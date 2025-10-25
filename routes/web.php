@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/edit_page/{slug}', [PageController::class, 'edit'])->name('admin_get_edit.pages');
     Route::post('/admin/store_page', [PageController::class, 'store'])->name('admin_store.pages');
     Route::patch('/admin/edit_page/{page}', [PageController::class, 'update'])->name('admin_edit_update.pages');
+    Route::delete('/admin/delete_page/{page}', [PageController::class, 'destroy'])->name('admin_delete.pages');
     Route::patch('/admin/update_status/{slug}', [PageController::class, 'updatePageStatus'])->name('admin_update_status.pages');
 
     Route::get('/admin/edit_home', [PageController::class, 'home'])->name('admin_edit_home');
@@ -89,9 +90,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/newsletters', fn() => inertia('UploadNewLetters'))->name('admin.create_newsletter');
     Route::post('/admin/newsletters', [NewsletterController::class, 'store'])->name('newsletters.store');
-});
+
     Route::get('/admin/calendar', [CalendarEventController::class, 'index'])->name('calendar.index');
     Route::post('/admin/calendar', [CalendarEventController::class, 'store'])->name('calendar.store');
+});
 
 
 require __DIR__ . '/auth.php';

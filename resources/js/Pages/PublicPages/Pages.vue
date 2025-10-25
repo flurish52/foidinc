@@ -161,6 +161,34 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Pagination -->
+                    <div v-if="pages.data && pages.data.length > 0" class="flex items-center justify-between px-6 py-4 border-t border-tertiary-dark/10 bg-white">
+                        <!-- Previous -->
+                        <Link
+                            v-if="pages.prev_page_url"
+                            :href="pages.prev_page_url"
+                            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+                        >
+                            Previous
+                        </Link>
+                        <span v-else class="px-4 py-2 text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">Previous</span>
+
+                        <!-- Page info -->
+                        <span class="text-sm text-secondary-light">
+        Page {{ pages.current_page }} of {{ pages.last_page }}
+    </span>
+
+                        <!-- Next -->
+                        <Link
+                            v-if="pages.next_page_url"
+                            :href="pages.next_page_url"
+                            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+                        >
+                            Next
+                        </Link>
+                        <span v-else class="px-4 py-2 text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">Next</span>
+                    </div>
+
                 </div>
 
                 <!-- Empty State -->
@@ -219,7 +247,7 @@ const lastUpdated = computed(() => {
 
 const destroy = (id) => {
     if (confirm("Are you sure you want to delete this page? This action cannot be undone.")) {
-        router.delete(`/pages/${id}`);
+        router.delete(`/admin/delete_page/${id}`);
     }
 };
 

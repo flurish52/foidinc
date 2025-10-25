@@ -22,7 +22,13 @@ class StorePageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'content' => 'nullable|string',
+            'status' => 'required|in:draft,publish',
+            'thumbnail' => 'nullable|string',
+            'parent_id' => 'nullable|numeric|exists:pages,id',
+            'main' => 'required|boolean',
+            'position' => 'nullable|numeric',
         ];
     }
 }
