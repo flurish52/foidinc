@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/pages', [PageController::class, 'adminView'])->name('admin_view.pages');
     Route::get('/admin/create_page', [PageController::class, 'create'])->name('admin_create.pages');
     Route::get('/admin/edit_page/{slug}', [PageController::class, 'edit'])->name('admin_get_edit.pages');
+    Route::get('/admin/edit_page', [PageController::class, 'editRoot'])->name('admin_edit_root.pages');
     Route::post('/admin/store_page', [PageController::class, 'store'])->name('admin_store.pages');
     Route::patch('/admin/edit_page/{page}', [PageController::class, 'update'])->name('admin_edit_update.pages');
     Route::delete('/admin/delete_page/{page}', [PageController::class, 'destroy'])->name('admin_delete.pages');

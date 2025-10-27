@@ -53,8 +53,8 @@ class PageController extends Controller
 
     public function home()
     {
+//            $page = Page::where('slug', '/')->firstOrFail()
         return inertia::render('EditHome', [
-            $page = Page::where('slug', '/')->firstOrFail()
         ]);
     }
     public function getHeroSlides()

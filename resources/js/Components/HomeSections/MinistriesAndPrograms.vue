@@ -4,13 +4,13 @@
             <Link
                 v-for="(card, index) in cards"
                 :key="index"
-                :href="`/page/${card.page.slug}`"
+                :href="`/page/${card?.page?.slug}`"
                 class="flex flex-col rounded-xl overflow-hidden bg-white shadow-md hover:shadow-xl border transition"
             >
                 <!-- Image -->
                 <div class="h-48">
                     <img
-                        :src="`/storage/${card.thumbnail}`"
+                        :src="`/storage/${card?.thumbnail}`"
                         :alt="card.title"
                         class="w-full h-full object-cover"
                     />
@@ -19,7 +19,7 @@
                 <!-- Title -->
                 <div class="flex items-center justify-center p-6">
                     <h3 class="text-lg font-semibold text-gray-800 text-center">
-                        {{ card.title }}
+                        {{ card?.title }}
                     </h3>
                 </div>
             </Link>

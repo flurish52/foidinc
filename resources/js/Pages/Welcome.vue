@@ -7,12 +7,14 @@
     <HeroSlider/>
 
     <section class="px-smpad md:px-lgpad">
-        <SectionHeader class="mx-12 mt-6 text-center" title="Ministries and Programs"/>
+        <SectionHeader class="mx-12 mt-6 text-gray-500 text-center" title="Ministries and Programs"/>
         <MinistriesAndPrograms/>
 
+        <SectionHeader class="mx-12 mt-6 text-gray-500 text-center" title="Today's readings"/>
         <TodaysReading/>
 
         <div class="mb-6">
+        <SectionHeader class="mx-12 mt-6 text-gray-500 text-center" title="News from the Vatican"/>
             <RecentNews/>
         </div>
 

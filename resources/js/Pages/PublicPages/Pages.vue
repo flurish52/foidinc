@@ -21,7 +21,7 @@
             </div>
 
             <!-- Stats Grid -->
-            <div  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div  class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-6 my-2">
                 <!-- Total Pages -->
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-tertiary-dark/10 hover:shadow-md transition-all duration-300">
                     <div class="flex items-center justify-between mb-4">
@@ -64,6 +64,21 @@
                     <div>
                         <p class="text-sm font-medium text-secondary-light mb-1">Drafts</p>
                         <p class="text-3xl font-bold text-secondary-dark">{{ draftCount }}</p>
+                    </div>
+                </div>
+
+                <!-- Total Main pages -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-tertiary-dark/10 hover:shadow-md transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-yellow-100 rounded-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-secondary-light mb-1">Main pages</p>
+                        <p class="text-3xl font-bold text-secondary-dark">{{ mainPagesCount }}</p>
                     </div>
                 </div>
 
@@ -232,6 +247,9 @@ const props = defineProps({
 // Calculate stats
 const publishedCount = computed(() => {
     return props.pages.data.filter(page => page.status === 'published').length;
+});
+const mainPagesCount = computed(() => {
+    return props.pages.data.filter(page => page.main).length;
 });
 
 const draftCount = computed(() => {

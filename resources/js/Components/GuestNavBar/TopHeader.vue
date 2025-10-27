@@ -68,7 +68,10 @@
                             ✕
                         </button>
                     </div>
-                    <MobileSideBar v-for="link in $page.props.links" :key="link.id" :link="link"/>
+                    <MobileSideBar
+                        v-for="(link, index) in $page.props.links.filter(l => l.main)"
+                                    :key="link.id" :link="link"
+                    />
                 </div>
             </div>
         </transition>
